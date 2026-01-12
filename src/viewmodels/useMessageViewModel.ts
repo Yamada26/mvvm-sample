@@ -1,11 +1,16 @@
-import { computed, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { useMessageModel } from "../models/messageModel"
 
-const MAX_LENGTH = 10;
+const MAX_LENGTH = 20;
 
 export function useMessageViewModel() {
     // Model
     const messageModel = useMessageModel()
+
+    // 初期化
+    onMounted(() => {
+        messageModel.fetchMessage()
+    })
 
     // View 用に加工
     const messageLength = computed(() => {
@@ -19,14 +24,10 @@ export function useMessageViewModel() {
         }
     })
 
-    // View から呼ばれる操作
-    const clearMessage = () => {
-        messageModel.clear()
-    }
-
     return {
         message: messageModel.message,
         messageLength,
-        clearMessage
+        loading: messageModel.loading,
+        clearMessage: messageModel.clear,
     }
 }
