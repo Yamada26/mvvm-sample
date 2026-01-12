@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <h1>MVVM Message Sample</h1>
+
         <p v-if="loading">Loading...</p>
         <input type="text" v-model="message" placeholder="Type a message"/>
 
