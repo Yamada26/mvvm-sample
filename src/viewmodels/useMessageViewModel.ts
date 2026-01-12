@@ -1,33 +1,33 @@
 import { computed, onMounted, watch } from "vue";
-import { useMessageModel } from "../models/messageModel"
+import { useMessageStore } from "../models/messageModel"
 
 const MAX_LENGTH = 20;
 
 export function useMessageViewModel() {
     // Model
-    const messageModel = useMessageModel()
+    const store = useMessageStore()
 
     // 初期化
     onMounted(() => {
-        messageModel.fetchMessage()
+        store.fetchMessage()
     })
 
     // View 用に加工
     const messageLength = computed(() => {
-        return messageModel.message.value.length
+        return store.message.length
     })
 
     // 入力監視
-    watch(messageModel.message, (newMessage) => {
+    watch(() => store.message, (newMessage) => {
         if (newMessage.length > MAX_LENGTH) {
-            messageModel.message.value = newMessage.slice(0, MAX_LENGTH)
+            store.message = newMessage.slice(0, MAX_LENGTH)
         }
     })
 
     return {
-        message: messageModel.message,
+        message: store.message,
         messageLength,
-        loading: messageModel.loading,
-        clearMessage: messageModel.clear,
+        loading: store.loading,
+        clearMessage: store.clear,
     }
 }

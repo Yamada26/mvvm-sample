@@ -1,23 +1,15 @@
 import { ref } from 'vue';
+import { defineStore } from 'pinia';
 
-// Model を Singleton として実装。
-// どの ViewModel からも同じインスタンスにアクセスできる。
-// props や emits を使わずに状態を共有できる。
-// ただし、
-// - 初期化タイミングが曖昧
-// - テストしづらい
-// - 状態が増えると管理不能
-const message = ref<string>('');
+export const useMessageStore = defineStore('message', () =>  {
+    const message = ref<string>('');
+    const loading = ref<boolean>(false);
 
-
-const loading = ref<boolean>(false);
-
-export function useMessageModel() {
     const fetchMessage = async () => {
         loading.value = true;
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        message.value = 'Shared Message';
+        message.value = 'Hello Pinia!';
         
         loading.value = false;
     }
@@ -32,5 +24,4 @@ export function useMessageModel() {
         fetchMessage,
         clear
     };
-}
-
+});
