@@ -1,21 +1,21 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { setActivePinia, createPinia } from "pinia";
-import { useMessageStore } from "../src/models/messageModel";
-import { useMessageViewModel } from "../src/viewmodels/useMessageViewModel";
-import { nextTick } from "vue";
-import MessageView from "@/views/MessageView.vue";
-import { mount } from "@vue/test-utils";
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
+import { useMessageStore } from '../src/models/messageModel'
+import { useMessageViewModel } from '../src/viewmodels/useMessageViewModel'
+import { nextTick } from 'vue'
+import MessageView from '@/pages/MessageView.vue'
+import { mount } from '@vue/test-utils'
 
-describe("useMessageViewModel", () => {
-    beforeEach(() => {
-        setActivePinia(createPinia());
-    });
+describe('useMessageViewModel', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
 
   it('初期表示時に fetchMessage が呼ばれる', async () => {
     const store = useMessageStore()
     const spy = vi.spyOn(store, 'fetchMessage')
 
-    mount(MessageView)  // 疑似的にコンポーネントをマウントしてライフサイクルをトリガー
+    mount(MessageView) // 疑似的にコンポーネントをマウントしてライフサイクルをトリガー
 
     expect(spy).toHaveBeenCalled()
   })
@@ -38,4 +38,3 @@ describe("useMessageViewModel", () => {
     expect(vm.message.value.length).toBe(20)
   })
 })
-
