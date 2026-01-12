@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import MessageView from './views/MessageView.vue';
 </script>
 
 <template>
-  <MessageView />
+  <div>
+    <nav>
+      <router-link to="/">Message</router-link> |
+      <router-link to="/preview">Preview</router-link>
+    </nav>
+
+    <router-view />
+  </div>
 </template>
 
