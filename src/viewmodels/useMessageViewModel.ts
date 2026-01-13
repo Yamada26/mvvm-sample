@@ -1,6 +1,6 @@
 import { computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useMessageStore } from '../models/messageModel'
+import { useMessageStore } from '../models/messageStore'
 
 const MAX_LENGTH = 20
 
