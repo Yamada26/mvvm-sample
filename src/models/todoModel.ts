@@ -8,16 +8,8 @@ export const useTodoStore = defineStore('todo', () => {
   async function fetchTodos() {
     loading.value = true
 
-    // const res = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-    // todos.value = await res.json()
-    // console.log(todos.value)
-
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    todos.value = [
-      { id: 1, title: 'Learn Vue' },
-      { id: 2, title: 'Learn Pinia' },
-      { id: 3, title: 'Build something awesome' },
-    ]
+    const res = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+    todos.value = await res.json()
 
     loading.value = false
   }
