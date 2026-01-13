@@ -14,6 +14,11 @@ const routes: RouteRecordRaw[] = [
     name: 'Preview',
     component: PreviewView,
   },
+  {
+    path: '/todo',
+    name: 'Todo',
+    component: () => import('@/pages/TodoPage.vue'),
+  },
 ]
 
 if (import.meta.env.DEV) {
