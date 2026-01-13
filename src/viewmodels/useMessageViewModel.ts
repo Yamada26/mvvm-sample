@@ -1,35 +1,36 @@
-import { computed, onMounted, watch } from "vue";
-import { storeToRefs } from "pinia";
-import { useMessageStore } from "../models/messageModel"
+import { computed, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useMessageStore } from '../models/messageModel'
 
-const MAX_LENGTH = 20;
+const MAX_LENGTH = 20
 
 export function useMessageViewModel() {
-    // Model
-    const store = useMessageStore()
-    const { message, loading } = storeToRefs(store)
+  // Model
+  const store = useMessageStore()
+  const { message, loading } = storeToRefs(store)
 
-    // API 呼び出し
-    onMounted(() => {
-        store.fetchMessage()
-    })
+  // API 呼び出し
+  onMounted(() => {
+    store.fetchMessage()
+  })
 
-    // View 用に加工
-    const messageLength = computed(() => {
-        return message.value.length
-    })
+  // View 用に加工
+  const messageLength = computed(() => {
+    return message.value.length
+  })
 
-    // 入力監視
-    watch(message, (newMessage) => {
-        if (newMessage.length > MAX_LENGTH) {
-            store.message = newMessage.slice(0, MAX_LENGTH)
-        }
-    })
-
-    return {
-        message: message,
-        loading: loading,
-        messageLength,
-        clearMessage: store.clear,
+  // 入力処理
+  function updateMessage(newMessage: string) {
+    if (newMessage.length <= MAX_LENGTH) {
+      store.message = newMessage
     }
+  }
+
+  return {
+    message: message,
+    loading: loading,
+    messageLength,
+    clearMessage: store.clear,
+    updateMessage,
+  }
 }
