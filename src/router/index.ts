@@ -1,19 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import MessageView from '@/pages/MessageView.vue'
-import PreviewView from '@/pages/PreviewView.vue'
 
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    name: 'Message',
-    component: MessageView,
-  },
-  {
-    path: '/preview',
-    name: 'Preview',
-    component: PreviewView,
-  },
   {
     path: '/todo',
     name: 'Todo',
