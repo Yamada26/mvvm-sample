@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LoadingText from '@/components/LoadingText.vue'
-import { NButton, NInput } from 'naive-ui'
+import { NButton, NInput, NDataTable } from 'naive-ui'
 import { useTodoStore } from '@/models/todoModel'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
@@ -11,6 +11,18 @@ const todoStore = useTodoStore()
 const { todos } = storeToRefs(todoStore)
 
 const newTodoTitle = ref('')
+
+const columns = [
+  {
+    title: 'ID',
+    key: 'id',
+    width: 100,
+  },
+  {
+    title: 'Title',
+    key: 'title',
+  },
+]
 
 const handleAddTodo = async () => {
   if (newTodoTitle.value.trim()) {
@@ -32,20 +44,7 @@ onMounted(async () => {
 
     <LoadingText :show="loading" />
 
-    <table border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="todo in todos" :key="todo.id">
-          <td>{{ todo.id }}</td>
-          <td>{{ todo.title }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <n-data-table :columns="columns" :data="todos" />
 
     <n-input v-model:value="newTodoTitle" placeholder="New todo" />
     <n-button :disabled="!newTodoTitle" @click="handleAddTodo">Add</n-button>
