@@ -33,14 +33,18 @@ onMounted(async () => {
     <LoadingText :show="loading" />
 
     <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-      </tr>
-      <tr v-for="todo in todos" :key="todo.id">
-        <td>{{ todo.id }}</td>
-        <td>{{ todo.title }}</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="todo in todos" :key="todo.id">
+          <td>{{ todo.id }}</td>
+          <td>{{ todo.title }}</td>
+        </tr>
+      </tbody>
     </table>
 
     <n-input v-model:value="newTodoTitle" placeholder="New todo" />
